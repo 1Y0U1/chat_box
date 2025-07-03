@@ -1,6 +1,6 @@
 require 'socket'
 
-# 🔧 Socket Setup
+# Socket Setup
 s = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM)
 s.setsockopt(Socket::SOL_SOCKET, Socket::SO_REUSEADDR, true)
 addr = Socket.sockaddr_in(4440, '127.0.0.1')
@@ -11,7 +11,7 @@ s.listen(1)
 client, client_addrs = s.accept
 puts "[+] Client connected!"
 
-# 📨 Receive Messages
+#  Receive Messages
 def recv_msg(client)
 while true
     data = client.recv(1024)
@@ -19,7 +19,7 @@ while true
   end
 end
 
-# 📤 Send Messages
+#  Send Messages
 def send_msg(client)
 while true
    print ">> " 
@@ -28,7 +28,7 @@ while true
   end
 end
 
-# 🧵 Threads
+#  Threads
 t1 = Thread.new { recv_msg(client) }
 t2 = Thread.new { send_msg(client) }
 t1.join

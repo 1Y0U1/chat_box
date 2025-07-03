@@ -16,7 +16,7 @@ loop do
 end
 puts "[+] Connected to server!"
 
-# 📨 Receive Messages
+#  Receive Messages
 def recv_msg(s)
 while true
     data = s.recv(1024)
@@ -24,7 +24,7 @@ while true
   end
 end
 
-# 📤 Send Messages
+# Send Messages
 def send_msg(s)
 while true
     print ">> "
@@ -33,7 +33,7 @@ while true
   end
 end
 
-# 🧵 Threads
+# Threads
 t1 = Thread.new { recv_msg(s) }
 t2 = Thread.new { send_msg(s) }
 t1.join

@@ -1,0 +1,40 @@
+require 'socket'
+
+s = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM)
+remote_addr = Socket.sockaddr_in(4440, '127.0.0.1')
+
+puts "[*] Connecting..."
+loop do
+  begin
+    s.connect(remote_addr)
+    break
+  rescue Errno::ECONNREFUSED,Errno::ECONNABORTED
+
+    sleep 1
+    retry
+  end
+end
+puts "[+] Connected to server!"
+
+# 📨 Receive Messages
+def recv_msg(s)
+while true
+    data = s.recv(1024)
+    puts data
+  end
+end
+
+# 📤 Send Messages
+def send_msg(s)
+while true
+    print ">> "
+    msg = gets.chomp
+    s.send(msg, 0)
+  end
+end
+
+# 🧵 Threads
+t1 = Thread.new { recv_msg(s) }
+t2 = Thread.new { send_msg(s) }
+t1.join
+t2.join
